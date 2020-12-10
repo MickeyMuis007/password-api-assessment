@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Reflection;
+using System.IO;
+using System.Collections.Generic;
 using Tries;
 
 namespace password_api_assessment
@@ -7,10 +10,15 @@ namespace password_api_assessment
     {
         static void Main(string[] args)
         {
-            var items = new List<string>() { "password" , "Password", "pas5word", "p@ssword", "P@ssword" };
-            var trie = new Trie();
-            trie.InsertRange(items);
-            trie.Display();
+            var layers = new List<string>() { "pP" , "aA@", "sS5", "sS5", "oO0", "rR", "dD" };
+            var trieLayer = new Trie();
+
+            trieLayer.InsertLayers(layers);
+            // trieLayer.Display();
+            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var fileName = "dict.txt";
+            trieLayer.OutputToFile(fileName, path);
+            Console.WriteLine($"File stored at: {path}/{fileName}");
         }
     }
 }
